@@ -19,7 +19,7 @@ public class Main {
         catch (ParseException e) {
             System.out.println("Invalid Data Format");
         }
-        Student firstStudent = new Student("Ivanov Ivan", "Java Developer", "Java",
+        Student firstStudent = new Student("Ivanov Fedor", "Java Developer", "Java",
                 "JDBC", "Spring", date, 16, 24, 16);
 
         getStats(firstStudent, false);
