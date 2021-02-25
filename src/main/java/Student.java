@@ -4,13 +4,9 @@ import java.util.List;
 
 public class Student {
 
-
-
     private String studentName, curriculum;
     private Date startDate;
     List<Course> courseList = new ArrayList<Course>();
-
-
 
     public Student(String studentName, String curriculum, Date startDate) {
         this.studentName = studentName;
