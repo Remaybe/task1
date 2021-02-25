@@ -6,8 +6,13 @@ import java.util.Locale;
 
 public class Main {
 
-    public static SimpleDateFormat formatter = new SimpleDateFormat("d MMMM yyyy, EEEE, HH:mm", Locale.ENGLISH);
-    public static Date todayDate = new Date();
+    public static final SimpleDateFormat formatter = new SimpleDateFormat("d MMMM yyyy, EEEE, HH:mm", Locale.ENGLISH);
+    public static final Date todayDate = new Date();
+    public static final long numberOfMillisecondsPerYear = 86400000;
+    public static final long numberOfMillisecondsPerHour = 3600000;
+    public static final int numberOfWorkingHoursPerDay = 8;
+
+
 
     public static void main(String[] args) {
 
@@ -22,17 +27,19 @@ public class Main {
         Student firstStudent = new Student("Ivanov Fedor", "Java Developer", "Java",
                 "JDBC", "Spring", date, 16, 24, 16);
 
-        getStats(firstStudent, false);
+        // getStats(firstStudent, true);
+
+
     }
 
     public static String getEndDate(Date date, int durationSum) {
         Calendar c = Calendar.getInstance();
         c.setTime(date);
-        while (durationSum >= 8) {
+        while (durationSum >= numberOfWorkingHoursPerDay) {
             if (formatter.format(c.getTime()).contains("Saturday") || formatter.format(c.getTime()).contains("Sunday")) c.add(Calendar.DATE, 1);
             else {
                 c.add(Calendar.DATE, 1);
-                durationSum -= 8;
+                durationSum -= numberOfWorkingHoursPerDay;
             }
         }
         c.add(Calendar.HOUR_OF_DAY, durationSum);
@@ -44,8 +51,8 @@ public class Main {
         String result = null;
         if (dateEnd.getTime() > todayDate.getTime()) delt = dateEnd.getTime() - date.getTime();
         else delt = todayDate.getTime() - dateEnd.getTime();
-        days = delt / 86400000;
-        hours = (delt % 86400000) / 3600000;
+        days = delt / numberOfMillisecondsPerYear;
+        hours = (delt % numberOfMillisecondsPerYear) / numberOfMillisecondsPerHour;
         if (days != 0) result = days + " d ";
         if (hours != 0) result += hours + " hours";
         if (dateEnd.getTime() > todayDate.getTime()) result = "Training is not finished. " + result + " are left until the end.";
