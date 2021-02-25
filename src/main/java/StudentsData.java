@@ -6,12 +6,12 @@ import java.util.Locale;
 public class StudentsData {
 
     public static StatAnalysis statAnalysis = new StatAnalysis();
-    public static final SimpleDateFormat formatter = new SimpleDateFormat("d MMMM yyyy, EEEE, HH:mm", Locale.ENGLISH);
+    public static final SimpleDateFormat FORMATTER = new SimpleDateFormat("d MMMM yyyy, EEEE, HH:mm", Locale.ENGLISH);
     public static Date date = new Date();
 
     public Date inputDate(String strDate) {
         try {
-            date = formatter.parse(strDate);
+            date = FORMATTER.parse(strDate);
         } catch (ParseException e) {
             System.out.println("Invalid Data Format");
         }
@@ -22,7 +22,7 @@ public class StudentsData {
         Date dateEnd = new Date();
         int totalHours = statAnalysis.getDurationSum(firstStudent.courseList);
         try {
-            dateEnd = formatter.parse(statAnalysis.getEndDate(firstStudent.getStartDate(), totalHours));
+            dateEnd = FORMATTER.parse(statAnalysis.getEndDate(firstStudent.getStartDate(), totalHours));
         } catch (ParseException e) {
             System.out.println("Invalid Data Format");
         }
@@ -39,7 +39,7 @@ public class StudentsData {
                 System.out.print(s);
             }
             System.out.println("\nTOTAL HOURS: " + totalHours + "\nSTART DATE: " +
-                    formatter.format(firstStudent.getStartDate()) + "\nEND DATE: " +
+                    FORMATTER.format(firstStudent.getStartDate()) + "\nEND DATE: " +
                     statAnalysis.getEndDate(firstStudent.getStartDate(), totalHours) + "\nPROGRESS: " +
                     statAnalysis.howMuchRemains(firstStudent.getStartDate(), dateEnd));
         }
