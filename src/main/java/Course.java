@@ -26,6 +26,8 @@ public class Course {
 
     @Override
     public String toString() {
-        return courseName + " - " + courseDuration + " hours.";
+        System.out.print(courseDuration);
+        System.out.format("%30s", courseName);
+        return "\n";
     }
 }

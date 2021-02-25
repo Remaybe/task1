@@ -12,12 +12,13 @@ public class Main {
 
         Student secondStudent = new Student("Sidorov Ivan", "AQE",
                 studentsData.inputDate("8 June 2020, Monday, 10:00"));
-        firstStudent.courseList.add(new Course("Test Design", 10));
-        firstStudent.courseList.add(new Course("Page Object", 16));
-        firstStudent.courseList.add(new Course("Selenium", 16));
+        secondStudent.courseList.add(new Course("Test Design", 10));
+        secondStudent.courseList.add(new Course("Page Object", 16));
+        secondStudent.courseList.add(new Course("Selenium", 16));
 
-//        studentsData.getStats(firstStudent, false);
+        studentsData.getStats(firstStudent, true);
         studentsData.getStats(secondStudent, true);
+
 
 
     }

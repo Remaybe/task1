@@ -27,16 +27,20 @@ public class StudentsData {
             System.out.println("Invalid Data Format");
         }
         if (check == false)
-            System.out.println(firstStudent.getStudentName() + " (" + firstStudent.getCurriculum() + ") - " + statAnalysis.howMuchRemains(firstStudent.getStartDate(), dateEnd));
+            System.out.println("--------------------------------\n" + firstStudent.getStudentName() + " (" + firstStudent.getCurriculum()
+                    + ") - " + statAnalysis.howMuchRemains(firstStudent.getStartDate(), dateEnd));
         else {
-            System.out.println("STUDENT NAME: " + firstStudent.getStudentName() + "\nWORKING TIME: From 10 to 18" +
-                    "\nPROGRAM NAME: " + firstStudent.getCurriculum() + "\n PROGRAM DURATION:");
+            System.out.println("--------------------------------" + "\nSTUDENT NAME: " + firstStudent.getStudentName() +
+                    "\nWORKING TIME: From 10 to 18" + "\nPROGRAM NAME: " + firstStudent.getCurriculum() + "\n");
+            System.out.printf("DURATION");
+            System.out.format("%24s", "COURSE");
+            System.out.println("\n--------------------------------");
             for (Course s : firstStudent.courseList) {
-                System.out.println(s);
+                System.out.print(s);
             }
-            System.out.println("TOTAL HOURS: " + totalHours + "\nSTART DATE: " +
+            System.out.println("\nTOTAL HOURS: " + totalHours + "\nSTART DATE: " +
                     formatter.format(firstStudent.getStartDate()) + "\nEND DATE: " +
-                    statAnalysis.getEndDate(firstStudent.getStartDate(), totalHours) + "\n PROGRESS:\n" +
+                    statAnalysis.getEndDate(firstStudent.getStartDate(), totalHours) + "\nPROGRESS: " +
                     statAnalysis.howMuchRemains(firstStudent.getStartDate(), dateEnd));
         }
     }
