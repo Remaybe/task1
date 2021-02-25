@@ -2,6 +2,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 import java.util.Locale;
 
 public class Main {
@@ -24,10 +25,13 @@ public class Main {
         catch (ParseException e) {
             System.out.println("Invalid Data Format");
         }
-        Student firstStudent = new Student("Ivanov Fedor", "Java Developer", "Java",
-                "JDBC", "Spring", date, 16, 24, 16);
 
-        // getStats(firstStudent, true);
+        Student firstStudent = new Student("Ivanov Fedor", "Java Developer", date);
+        firstStudent.courseList.add(new Course("Java", 16));
+        firstStudent.courseList.add(new Course("JDBC", 24));
+        firstStudent.courseList.add(new Course("Spring", 16));
+
+        getStats(firstStudent, true);
 
 
     }
@@ -62,7 +66,7 @@ public class Main {
 
     public static void getStats (Student firstStudent, boolean check) {
         Date dateEnd = new Date();
-        int totalHours = firstStudent.getCourseDuration1() + firstStudent.getCourseDuration2() + firstStudent.getCourseDuration3();
+        int totalHours =  getDurationSum(firstStudent.courseList);
         try {
             dateEnd = formatter.parse(getEndDate(firstStudent.getStartDate(), totalHours));
         }
@@ -70,13 +74,25 @@ public class Main {
             System.out.println("Invalid Data Format");
         }
         if (check == false) System.out.println(firstStudent.getStudentName() + " (" + firstStudent.getCurriculum() + ") - " + howMuchRemains(firstStudent.getStartDate(),dateEnd));
-        else System.out.println("STUDENT NAME: " + firstStudent.getStudentName() + "\nWORKING TIME: From 10 to 18" +
-                    "\nPROGRAM NAME: " + firstStudent.getCurriculum() + "\n PROGRAM DURATION:\n" +
-                    firstStudent.getCourse1() + " - " + firstStudent.getCourseDuration1() + " hours \n" +
-                    firstStudent.getCourse2() + " - " + firstStudent.getCourseDuration2() + " hours \n" +
-                    firstStudent.getCourse3() + " - " + firstStudent.getCourseDuration3() + " hours \nTOTAL HOURS: " +
-                    totalHours + "\nSTART DATE: " + formatter.format(firstStudent.getStartDate()) + "\nEND DATE: " +
+        else {
+            System.out.println("STUDENT NAME: " + firstStudent.getStudentName() + "\nWORKING TIME: From 10 to 18" +
+                    "\nPROGRAM NAME: " + firstStudent.getCurriculum() + "\n PROGRAM DURATION:");
+            for(Course s : firstStudent.courseList) {
+                System.out.println(s);
+            }
+            System.out.println("TOTAL HOURS: " + totalHours + "\nSTART DATE: " +
+                    formatter.format(firstStudent.getStartDate()) + "\nEND DATE: " +
                     getEndDate(firstStudent.getStartDate(), totalHours) + "\n PROGRESS:\n" +
                     howMuchRemains(firstStudent.getStartDate(), dateEnd));
         }
+        }
+
+    public static int getDurationSum(List<Course> courseList){
+        int durationSum = 0;
+        for (int i = 0; i < courseList.size(); i++){
+            durationSum += courseList.get(0).getCourseDuration();
+        }
+        return durationSum;
+
+    }
     }
