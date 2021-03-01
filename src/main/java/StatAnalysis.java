@@ -1,3 +1,4 @@
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
@@ -12,7 +13,23 @@ public class StatAnalysis {
     public static final long MILLISECONDS_PER_HOUR = 3600000;
     public static final int WORKING_HOURS_PER_DAY = 8;
 
-    public static String getEndDate(Date date, int durationSum) {
+    public int getTotalHours(Student student){
+        int totalHours = getDurationSum(student.courseList);
+        return totalHours;
+    }
+
+    public Date getEndDate(Student student){
+        Date dateEnd = new Date();
+        int totalHours = getDurationSum(student.courseList);
+        try {
+            dateEnd = FORMATTER.parse(getTextEndDate(student.getStartDate(), totalHours));
+        } catch (ParseException e) {
+            System.out.println("Invalid Data Format");
+        }
+        return dateEnd;
+    }
+
+    public String getTextEndDate(Date date, int durationSum) {
         Calendar c = Calendar.getInstance();
         c.setTime(date);
         while (durationSum >= WORKING_HOURS_PER_DAY) {
@@ -27,7 +44,7 @@ public class StatAnalysis {
         return FORMATTER.format(c.getTime());
     }
 
-    public static int getDurationSum(List<Course> courseList) {
+    public int getDurationSum(List<Course> courseList) {
         int durationSum = 0;
         for (int i = 0; i < courseList.size(); i++) {
             durationSum += courseList.get(i).getCourseDuration();
@@ -36,7 +53,7 @@ public class StatAnalysis {
 
     }
 
-    public static String howMuchRemains(Date date, Date dateEnd) {
+    public String getHowMuchRemains(Date date, Date dateEnd) {
         long delt, days, hours;
         String result = null;
         if (dateEnd.getTime() > TODAY_DATE.getTime()) delt = dateEnd.getTime() - date.getTime();
@@ -46,9 +63,8 @@ public class StatAnalysis {
         if (days != 0) result = days + " d ";
         if (hours != 0) result += hours + " hours";
         if (dateEnd.getTime() > TODAY_DATE.getTime())
-            result = "Training is not finished. " + result + " are left until the end.";
-        else result = "Training completed. " + result + " have passed after the end.";
-        return result;
+            return "Training is not finished. \n" + result + " are left until the end.";
+        else return "Training completed. \n" + result + " have passed after the end.";
     }
 
 }
