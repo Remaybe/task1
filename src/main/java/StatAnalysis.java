@@ -13,20 +13,8 @@ public class StatAnalysis {
     public static final long MILLISECONDS_PER_HOUR = 3600000;
     public static final int WORKING_HOURS_PER_DAY = 8;
 
-    public int getTotalHours(Student student){
-        int totalHours = getDurationSum(student.courseList);
-        return totalHours;
-    }
-
-    public Date getEndDate(Student student){
-        Date dateEnd = new Date();
-        int totalHours = getDurationSum(student.courseList);
-        try {
-            dateEnd = FORMATTER.parse(getTextEndDate(student.getStartDate(), totalHours));
-        } catch (ParseException e) {
-            System.out.println("Invalid Data Format");
-        }
-        return dateEnd;
+    public Date getEndDate(Student student) throws ParseException {
+        return FORMATTER.parse(getTextEndDate(student.getStartDate(), getDurationSum(student.courseList)));
     }
 
     public String getTextEndDate(Date date, int durationSum) {
@@ -44,10 +32,8 @@ public class StatAnalysis {
         return FORMATTER.format(c.getTime());
     }
 
-
     public int getDurationSum(List<Course> courseList) {
-        int durationSum = courseList.stream().mapToInt(Course::getCourseDuration).sum();
-        return durationSum;
+        return courseList.stream().mapToInt(Course::getCourseDuration).sum();
     }
 
     public String getHowMuchRemains(Date date, Date dateEnd) {
@@ -63,5 +49,4 @@ public class StatAnalysis {
             return "Training is not finished. \n" + result + " are left until the end.";
         else return "Training completed. \n" + result + " have passed after the end.";
     }
-
 }

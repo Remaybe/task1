@@ -1,15 +1,18 @@
-import java.util.Arrays;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Locale;
 
 public class Main {
 
     static StudentsData studentsData = new StudentsData();
+    public static final SimpleDateFormat FORMATTER = new SimpleDateFormat("d MMMM yyyy, EEEE, HH:mm", Locale.ENGLISH);
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws ParseException {
 
         Student firstStudent = Student.builder()
                 .studentName("Ivanov Fedor")
                 .curriculum("Java Developer")
-                .startDate(studentsData.setDate("1 June 2020, Monday, 10:00"))
+                .startDate(FORMATTER.parse("1 June 2020, Monday, 10:00"))
                 .build();
         firstStudent.chooseCourse(CourseOrder.JAVA);
         firstStudent.chooseCourse(CourseOrder.JDBC);
@@ -18,14 +21,14 @@ public class Main {
         Student secondStudent = Student.builder()
                 .studentName("Sidorov Ivan")
                 .curriculum("AQE")
-                .startDate(studentsData.setDate("8 June 2020, Monday, 10:00"))
+                .startDate(FORMATTER.parse("8 June 2020, Monday, 10:00"))
                 .build();
         secondStudent.chooseCourse(CourseOrder.TEST_DESIGN);
         secondStudent.chooseCourse(CourseOrder.PAGE_OBJECT);
         secondStudent.chooseCourse(CourseOrder.SELENIUM);
 
         studentsData.getStats(firstStudent, true);
-        studentsData.getStats(secondStudent, true);
+        studentsData.getStats(secondStudent, false);
 
     }
 }
