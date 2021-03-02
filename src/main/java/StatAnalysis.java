@@ -44,13 +44,10 @@ public class StatAnalysis {
         return FORMATTER.format(c.getTime());
     }
 
-    public int getDurationSum(List<Course> courseList) {
-        int durationSum = 0;
-        for (int i = 0; i < courseList.size(); i++) {
-            durationSum += courseList.get(i).getCourseDuration();
-        }
-        return durationSum;
 
+    public int getDurationSum(List<Course> courseList) {
+        int durationSum = courseList.stream().mapToInt(Course::getCourseDuration).sum();
+        return durationSum;
     }
 
     public String getHowMuchRemains(Date date, Date dateEnd) {
