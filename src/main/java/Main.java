@@ -12,7 +12,7 @@ public class Main {
         Student firstStudent = Student.builder()
                 .studentName("Ivanov Fedor")
                 .curriculum("Java Developer")
-                .startDate(FORMATTER.parse("1 June 2020, Monday, 10:00"))
+                .startDate(FORMATTER.parse("3 September 2020, Thursday, 10:00"))
                 .build();
         firstStudent.chooseCourse(CourseOrder.JAVA);
         firstStudent.chooseCourse(CourseOrder.JDBC);
@@ -28,7 +28,7 @@ public class Main {
         secondStudent.chooseCourse(CourseOrder.SELENIUM);
 
         studentsData.getStats(firstStudent, true);
-        studentsData.getStats(secondStudent, false);
+        studentsData.getStats(secondStudent, true);
 
     }
 }

@@ -28,7 +28,11 @@ public class StatAnalysis {
                 durationSum -= WORKING_HOURS_PER_DAY;
             }
         }
-        c.add(Calendar.HOUR_OF_DAY, durationSum);
+        if (durationSum != 0) c.add(Calendar.HOUR_OF_DAY, durationSum);
+        else {
+            c.add(Calendar.DATE, -1);
+            c.add(Calendar.HOUR_OF_DAY, 8);
+        }
         return FORMATTER.format(c.getTime());
     }
 
