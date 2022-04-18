@@ -13,11 +13,16 @@ public class StatAnalysis {
     public static final long MILLISECONDS_PER_HOUR = 3600000;
     public static final int WORKING_HOURS_PER_DAY = 8;
 
-    public Date getEndDate(Student student) throws ParseException {
-        return FORMATTER.parse(getTextEndDate(student.getStartDate(), getDurationSum(student.courseList)));
+    public static Date getEndDate(Student student) {
+        try {
+            return FORMATTER.parse(getTextEndDate(student.getStartDate(), getDurationSum(student.courseList)));
+        } catch (ParseException e) {
+            e.printStackTrace();
+            return null;
+        }
     }
 
-    public String getTextEndDate(Date date, int durationSum) {
+    public static String getTextEndDate(Date date, int durationSum) {
         Calendar c = Calendar.getInstance();
         c.setTime(date);
         while (durationSum >= WORKING_HOURS_PER_DAY) {
@@ -36,14 +41,14 @@ public class StatAnalysis {
         return FORMATTER.format(c.getTime());
     }
 
-    public int getDurationSum(List<Course> courseList) {
+    public static int getDurationSum(List<Course> courseList) {
         return courseList.stream().mapToInt(Course::getCourseDuration).sum();
     }
 
-    public String getHowMuchRemains(Date date, Date dateEnd) {
+    public static String getHowMuchRemains(Date dateEnd) {
         long delt, days, hours;
         String result = null;
-        if (dateEnd.getTime() > TODAY_DATE.getTime()) delt = dateEnd.getTime() - date.getTime();
+        if (dateEnd.getTime() > TODAY_DATE.getTime()) delt = dateEnd.getTime() - TODAY_DATE.getTime();
         else delt = TODAY_DATE.getTime() - dateEnd.getTime();
         days = delt / MILLISECONDS_PER_DAY;
         hours = (delt % MILLISECONDS_PER_DAY) / MILLISECONDS_PER_HOUR;
